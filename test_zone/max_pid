@@ -1,0 +1,7 @@
+#This script gets the maximum value of pid on your terminal
+#This should give the same result as the file /proc/sys/kernel/pid_max
+#But due to some reasons i have been unable to access it or view its contents
+
+#!/bin/bash
+echo $((2**22-1))
+
