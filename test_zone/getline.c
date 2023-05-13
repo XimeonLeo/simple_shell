@@ -48,7 +48,7 @@ int main(void)
 	while (1024)
 	{
 	//printf("(⁠｡⁠◕⁠‿⁠◕⁠｡⁠)⁠➜");
-	printf("(⁠☞⁠ ⁠ಠ⁠_⁠ಠ⁠)⁠☞");
+	printf("(⁠☞⁠ ⁠ಠ⁠_⁠ಠ⁠)⁠☞ ");
 	rtn = getline(&buff, &buf_size, stdin);
 
 	if (rtn == -1)

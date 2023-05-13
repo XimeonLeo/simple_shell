@@ -3,6 +3,7 @@
 int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, char **env)
 {
 	char *cmd = NULL;
+	char *buff = "#cisfun$ ";
 	size_t buff_size = 0;
 	ssize_t ret_val, int_mode = 1;
 	char *token = NULL, *delim = " \n";
@@ -16,7 +17,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, 
 		int_mode = isatty(STDIN_FILENO);
 		if (int_mode == 1)
 		{
-			printf("#cisfun$ ");
+			write(STDOUT_FILENO, buff, 9);
 		}
 
 		ret_val = getline(&cmd, &buff_size, stdin);
@@ -41,7 +42,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, 
 
 				if (execve(argv[0], argv, env) == -1)
 				{
-					printf("%s: No such file or directory\n", argv[0]);
+					printf("%s: No such file or directory", argv[0]);
 				}
 			}
 			else

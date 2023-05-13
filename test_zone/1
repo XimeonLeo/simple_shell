@@ -71,25 +71,29 @@
 // i havnt gotten it yet, ill get back to it
 int main(int argc, char *argv[])
 {
-	char str[100];
+	char *str = NULL;
 	char *delim = " \n";
 	char *token;
-	int j;
+	int i;
+	char str[100];  // Declare a string of maximum length 100
 
-	j = 0;
-	while (j < argc)
-	{
-		str[j] = *argv[j];
-		j++;
-	}
-	str[j] = '\0';
+	strcpy(str, argv[1]);
+	printf("Copied string: %s\n", str);
 
-	j = 0;
-	while (str[j])
+
+//	str = malloc(sizeof(char) * (strlen(*argv) + 1));
+//	str = malloc(sizeof(char *) * argc + 1);
+
+/*	i = 0;
+	while (*argv[i])
 	{
-	printf("This are what wae copied into str: %s\n", str[j]);
-	j++;
+		str[i] = argv[0][i];
+		i++;
 	}
+	*argv[i] = '\0';
+
+*/
+	printf("This is what is copied into str: %s\n", str);
 	token = strtok(str, delim);
 
 	while (token)
