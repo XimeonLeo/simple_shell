@@ -8,6 +8,8 @@
 #include <sys/wait.h>
 #include <string.h>
 
+#define MAX_TOK 100
+
 ssize_t write(int fd, const void *buf, size_t count);
 
 

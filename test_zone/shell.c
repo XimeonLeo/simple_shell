@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, char **env)
+int main(__attribute__((unused)) int argc, __attribute__((unused)) char *av[], char **env)
 {
 	char *cmd = NULL;
 	size_t buff_size = 0;
@@ -41,7 +41,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv, 
 
 				if (execve(argv[0], argv, env) == -1)
 				{
-					printf("%s: No such file or directory\n", argv[0]);
+					perror(av[0]);
 				}
 			}
 			else
