@@ -1,0 +1,46 @@
+.\" Man page for simple shell.
+.\" Contact ximeonleo@gmail.com to correct errors or typos.
+.TH man 8 "10/05/2023" "Simple Shell man page"
+
+.SH NAME
+.B simple_shell
+- Man For Simple Shell Project for ALX SE School.
+
+.SH SYNOPSIS
+.B ./hsh
+
+.SH DESCRIPTION
+This project — Simple shell is the final sprint 1 project in ALX SE school  which is a program that provides an interface between the user and the operating system. It allows users to interact with the operating system by accepting commands and executing them. The shell acts as a command-line interpreter, interpreting the commands entered by the user and translating them into instructions that the operating system can understand.
+
+.SH OPTIONS
+Options are specific to and interpreted by the program that the command calls. By convention, options are separate arguments or flags  that follow the name of the command.
+
+.SH COMMAND
+pwd: Shows the path of the folder where you're currently at.
+ls: Shows or list the contents of a folder.
+cp: copy a file to another folder or directory.
+rm: Delete files.
+sh, bash: Interpreters of commands.
+mkdir: Create a folder.
+rmdir: Delete a folder
+sleep: "Sleep" system/machine during the seconds you indicate.
+touch: create a file.
+cat: Shows/list the contents of a file.
+echo: shows the content of what you indicate.
+kernelversion: shows the kernel version
+chgrp: Change a file group.
+kill: "Kill" a process.
+chmod: Change the permissions of a file.
+ln: Create a link between files or folders.
+mv: Move a file to another folder or directory.
+chown: Change the user of a file.
+
+.SH SEE ALSO
+nuseradd.debian(8), passwd(5), useradd(8)
+
+.SH BUGS
+No known bugs.
+
+.SH AUTHORS
+Onabowale Simeon ximeonleo@gmail.com
+Jimmy Mkpoikana emeraldjimmy500@gmail.com
