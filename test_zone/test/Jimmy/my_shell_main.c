@@ -27,13 +27,13 @@ int main(int argc __attribute__((unused)), char **argv)
 	while (1)
 	{
 		non_interactive();
-		print(" ($ ) ", STDOUT_FILENO);
+		_write(" ($ ) ", STDOUT_FILENO);
 		if (getline(&line, &nn, stdin) == -1)
 		{
 			free(line);
 			exit(status);
 		}
-			remove_newline(line);
+			rmv_nl(line);
 			remove_comment(line);
 			commands = tokenizer(line, ";");
 
