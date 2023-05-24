@@ -61,11 +61,11 @@ void ctrl_c(int);
 void rm_cmt(char *sig_val);
 
 /*utils*/
-int parse_command(char *cmd);
-void execute_command(char **cmd_toks, int cmd_typ);
-char *check_path(char *cmd);
-void (*get_func(char *cmd))(char **);
-char *_getenv(char *pt);
+int parse_cmd(char *cmd);
+void exec_comd(char **cmd_toks, int cmd_typ);
+char *path_inspect(char *cmd);
+void (*get_function(char *cmd))(char **);
+char *get_environ(char *pt);
 
 /*built_in*/
 void env(char **cmd_toks);
