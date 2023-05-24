@@ -70,12 +70,10 @@ char *_getenv(char *);
 
 /*built_in*/
 void env(char **cmd_toks);
-void quit(char **cmd_toks);
+void exit(char **cmd_toks);
 
 /*main*/
 extern void non_interactive(void);
 extern void initializer(char **current_command, int type_command);
 
 #endif /*SHELL_H*/
-
-

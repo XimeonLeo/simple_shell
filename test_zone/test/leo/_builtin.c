@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * quit - a builtin to exit
+ * exit - a builtin to exit
  *
  * @cmd_toks: cmd passed
  *
  * Return: nithing
  */
 
-void quit(char **cmd_toks)
+void exit(char **cmd_toks)
 {
 	int toks_num = 0, cmd;
 
@@ -44,7 +44,7 @@ void quit(char **cmd_toks)
 
 
 /**
- * env - prints out tne current env variable
+ * env - prints out the current env variable
  *
  * @tokenized_command: cmd passed
  *
