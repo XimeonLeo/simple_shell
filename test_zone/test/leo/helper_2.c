@@ -4,48 +4,48 @@
 /**
  * _strtok_r - strtok modified!!!
  *
- * @string: string to tokenize
+ * @str: string to tokenize
  * @delim: delimiter used for tokenization
- * @save_ptr: pointer to where a delimeter is found
+ * @new_ptr: pointer to where a delimeter is found
  *
  * Return: The next token if not NULL
  */
 
-char *_strtok_r(char *string, char *delim, char **save_ptr)
+char *_strtok_r(char *str, char *delim, char **new_ptr)
 {
 	char *end;
 
-	if (string == NULL)
+	if (str == NULL)
 	{
-		string = *save_ptr;
+		str = *new_ptr;
 	}
 
-	if (*string == '\0')
+	if (*str == '\0')
 	{
-		*save_ptr = string;
+		*new_ptr = str;
 		return (NULL);
 	}
 
-	string += _strspn(string, delim);
+	str += _strsub(str, delim);
 
-	if (*string == '\0')
+	if (*str == '\0')
 	{
-		*save_ptr = string;
+		*new_ptr = str;
 		return (NULL);
 	}
 
-	end = string + _strcspn(string, delim);
+	end = str + my_strcspn(str, delim);
 
 	if (*end == '\0')
 	{
-		*save_ptr = end;
-		return (string);
+		*new_ptr = end;
+		return (str);
 	}
 
 	*end = '\0';
-	*save_ptr = end + 1;
+	*new_ptr = end + 1;
 
-	return (string);
+	return (str);
 }
 
 /**
@@ -56,28 +56,28 @@ char *_strtok_r(char *string, char *delim, char **save_ptr)
  * Return: an int str
  */
 
-int _atoi(char *s)
+int _atoi(char *str)
 {
 	size_t itger = 0;
 
 	do {
-		if (*s == '-')
+		if (*str == '-')
 		{
 			return (-1);
 		}
-		else if ((*s < '0' || *s > '9') && *s != '\0')
+		else if ((*str < '0' || *str > '9') && *str != '\0')
 		{
 			return (-1);
 		}
-		else if (*s >= '0'  && *s <= '9')
+		else if (*str >= '0'  && *str <= '9')
 		{
-			itger = (itger * 10) + (*s - '0');
+			itger = (itger * 10) + (*str - '0');
 		}
 		else if (itger > 0)
 		{
 			break;
 		}
-	} while (*s++);
+	} while (*str++);
 
 	return (itger);
 }
@@ -86,37 +86,37 @@ int _atoi(char *s)
  * _realloc - reallocates a memory for other use
  *
  * @ptr: pointer to a malloced memory
- * @old_size: size of ptr
- * @new_size: new size to be reallocatef
+ * @old_mem: size of ptr
+ * @new_mem: new size to be reallocatef
  *
  * Return: pointer to tge address of a reallocated memory block
  */
 
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *_realloc(void *ptr, size_t old_mem, size_t new_mem)
 {
 	void *tmp;
 	size_t index;
 
 	if (ptr == NULL)
 	{
-		tmp = malloc(new_size);
+		tmp = malloc(new_mem);
 		return (tmp);
 	}
-	else if (new_size == old_size)
+	else if (new_mem == old_mem)
 	{
 		return (ptr);
 	}
-	else if (new_size == 0 && ptr != NULL)
+	else if (new_mem == 0 && ptr != NULL)
 	{
 		free(ptr);
 		return (NULL);
 	}
 	else
 	{
-		tmp = malloc(new_size);
+		tmp = malloc(new_mem);
 		if (tmp != NULL)
 		{
-			for (index = 0; index < min(old_size, new_size); index++)
+			for (index = 0; index < min(old_mem, new_mem); index++)
 				*((char *)tmp + index) = *((char *)ptr + index);
 			free(ptr);
 
@@ -131,14 +131,14 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 /**
  * ctrl_c_handler - handles the signal -> CTRL-C
  *
- * @signum: signal val
+ * @sig_val: signal val
  *
  * Return: nothinh
  */
 
-void ctrl_c_handler(int signum)
+void ctrl_c_handler(int sig_val)
 {
-	if (signum == SIGINT)
+	if (sig_val == SIGINT)
 	{
 		_write("\n($) ", STDIN_FILENO);
 	}

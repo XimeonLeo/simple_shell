@@ -1,22 +1,22 @@
 #include "shell.h"
 
 /**
- * _strspn - returns the length of a sub-string
+ * _strsub - returns the length of a sub-string
  *
- * @str1: main string
- * @str2: sub_string
+ * @s1: main string
+ * @s2: sub_string
  *
  * Return: num of matched bytes
  */
 
-int _strspn(char *str1, char *str2)
+int _strsub(char *s1, char *s2)
 {
 	int index = 0;
 	int mach = 0;
 
-	while (str1[index] != '\0')
+	while (s1[index] != '\0')
 	{
-		if (_strchr(str2, str1[index]) == NULL)
+		if (my_strchr(s2, s1[index]) == NULL)
 			break;
 		mach++;
 		index++;
@@ -27,44 +27,44 @@ int _strspn(char *str1, char *str2)
 /**
  * _strcmp - compare a string with another
  *
- * @first: the first string to consider
+ * @s1: the first string to consider
  *
- * @second: the sedond string to consider
+ * @s2: the sedond string to consider
  *
  * Return: difference of the two strings if different
  */
 
-int _strcmp(char *first, char *second)
+int _strcmp(char *s1, char *s2)
 {
 	int index = 0;
 
-	while (first[index])
+	while (s1[index])
 	{
-		if (first[index] != second[index])
+		if (s1[index] != s2[index])
 		{
 			break;
 		}
 		index++;
 	}
-	return (first[index] - second[index]);
+	return (s1[index] - s2[index]);
 }
 
 /**
- * _strcspn - what is in st1 but nit in s2
+ * my_strcspn - what is in st1 but not in s2
  *
- * @str1: string to searched
- * @str2: string to consider
+ * @s1: string to searched
+ * @s2: string to consider
  *
  * Return: matched index
  */
 
-int _strcspn(char *str1, char *str2)
+int my_strcspn(char *s1, char *s2)
 {
 	int length = 0, index;
 
-	for (index = 0; str1[index] != '\0'; index++)
+	for (index = 0; s1[index] != '\0'; index++)
 	{
-		if (_strchr(str2, str1[index]) != NULL)
+		if (my_strchr(s2, s1[index]) != NULL)
 			break;
 		length++;
 	}
@@ -73,25 +73,25 @@ int _strcspn(char *str1, char *str2)
 
 
 /**
- * _strchr - return the index where a character is found
+ * my_strchr - return the index where a character is found
  *
- * @s: string to search
- * @c: what to be searched
+ * @s1: string to search
+ * @s2: what to be searched
  *
- * Return: tge address of where c is found in s
+ * Return: the address of where s2 is found in s1
  */
 
-char *_strchr(char *s, char c)
+char *my_strchr(char *s1, char s2)
 {
 	int index;
 
-	for (index = 0; s[index] != c && s[index]; index++)
+	for (index = 0; s1[index] != s2 && s1[index]; index++)
 	{
 		;
 	}
-	if (s[index] == c)
+	if (s1[index] == s2)
 	{
-		return (s + index);
+		return (s1 + index);
 	}
 	else
 		return (NULL);
@@ -100,24 +100,24 @@ char *_strchr(char *s, char c)
 /**
  * _strcat - append two strings together(cat)
  *
- * @destination: main string
- * @source:  string to append to the main
+ * @str1: main string
+ * @str2:  string to append to the main
  *
  * Return: a string containing contents of both strings
  */
 
-char *_strcat(char *destination, char *source)
+char *_strcat(char *str1, char *str2)
 {
 	char *cat_str =  NULL;
-	int length_1 = _strlen(destination), length_2 = _strlen(source);
+	int length_1 = _strlen(str1), length_2 = _strlen(str2);
 
 	cat_str = malloc(sizeof(*cat_str) * (length_1 + length_2 + 1));
 	if (!cat_str)
 	{
 		return (NULL);
 	}
-	_strcpy(destination, cat_str);
-	_strcpy(source, cat_str + length_1);
+	_strcpy(str1, cat_str);
+	_strcpy(str2, cat_str + length_1);
 	cat_str[length_1 + length_2] = '\0';
 
 	return (cat_str);

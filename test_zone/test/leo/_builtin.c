@@ -3,38 +3,38 @@
 /**
  * quit - a builtin to exit
  *
- * @tokenized_command: cmd passed
+ * @cmd_toks: cmd passed
  *
  * Return: nithing
  */
 
-void quit(char **tokenized_command)
+void quit(char **cmd_toks)
 {
 	int toks_num = 0, cmd;
 
-	for (; tokenized_command[toks_num] != NULL; toks_num++)
+	for (; cmd_toks[toks_num] != NULL; toks_num++)
 	{
 		;
 	}
 	if (toks_num == 1)
 	{
-		free(tokenized_command), free(line), free(commands);
+		free(cmd_toks), free(line), free(commands);
 		exit(status);
 	}
 	else if (toks_num == 2)
 	{
-		cmd = _atoi(tokenized_command[1]);
+		cmd = _atoi(cmd_toks[1]);
 		if (cmd == -1)
 		{
 			_write(shell_name, STDERR_FILENO);
 			_write(": 1: exit: Illegal number: ", STDERR_FILENO);
-			_write(tokenized_command[1], STDERR_FILENO);
+			_write(cmd_toks[1], STDERR_FILENO);
 			_write("\n", STDERR_FILENO);
 			status = 2;
 		}
 		else
 		{
-			free(line), free(tokenized_command), free(commands);
+			free(line), free(cmd_toks), free(commands);
 			exit(cmd);
 		}
 	}
@@ -51,7 +51,7 @@ void quit(char **tokenized_command)
  * Return: nothing
  */
 
-void env(char **tokenized_command __attribute__((unused)))
+void env(char **cmd_toks __attribute__((unused)))
 {
 	int index;
 

@@ -48,18 +48,18 @@ int _strlen(char *str);
 void _strcpy(char *s1, char *s2);
 
 /*helpers2*/
-int _strcmp(char *, char *);
-char *_strcat(char *, char *);
-int _strspn(char *, char *);
-int _strcspn(char *, char *);
-char *_strchr(char *, char);
+int _strcmp(char *s1, char *s2);
+char *_strcat(char *str1, char *str2);
+int _strspn(char *s1, char *s2);
+int my_strcspn(char *s1, char *s2);
+char *my_strchr(char *s1, char s2);
 
 /*helpers3*/
-char *_strtok_r(char *, char *, char **);
-int _atoi(char *);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+char *_strtok_r(char *str, char *delim, char **new_ptr);
+int _atoi(char *str);
+void *_realloc(void *ptr, unsigned int old_mem, unsigned int new_mem);
 void ctrl_c_handler(int);
-void remove_comment(char *);
+void remove_comment(char *sig_val);
 
 /*utils*/
 int parse_command(char *);
@@ -69,8 +69,8 @@ void (*get_func(char *))(char **);
 char *_getenv(char *);
 
 /*built_in*/
-void env(char **);
-void quit(char **);
+void env(char **cmd_toks);
+void quit(char **cmd_toks);
 
 /*main*/
 extern void non_interactive(void);

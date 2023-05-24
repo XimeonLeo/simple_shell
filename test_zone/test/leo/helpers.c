@@ -82,8 +82,8 @@ char **tokenizer(char *cmd, char *delim)
 /**
  * _strcpy - copies a string to a new address
  *
- * @source: where to copy from
- * @dest: where to copy to
+ * @s1: where to copy from
+ * @s2: where to copy to
  *
  * Return: nothing
  */
@@ -92,11 +92,11 @@ void _strcpy(char *s1, char *s2)
 {
 	int index;
 
-	for (index = 0; source[index]; index++)
+	for (index = 0; s1[index]; index++)
 	{
-		dest[index] = source[index];
+		s2[index] = s1[index];
 	}
-	dest[index] = '\0';
+	s2[index] = '\0';
 }
 
 /**
