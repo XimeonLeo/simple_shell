@@ -27,7 +27,7 @@ void non_interactive(void)
 					free(present_cmd);
 					break;
 				}
-				entered_cmd = parse_command(present_cmd[0]);
+				entered_cmd = parse_cmd(present_cmd[0]);
 				initializer(present_cmd, entered_cmd);
 				free(present_cmd);
 			}
