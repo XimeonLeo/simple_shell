@@ -131,7 +131,7 @@ void (*get_func(char *command))(char **)
 {
 	int index;
 	function_map mapping[] = {
-		{"env", env}, {"exit", quit}
+		{"env", env}, {"exit", exit}
 	};
 
 	for (index = 0; index < 2; index++)
