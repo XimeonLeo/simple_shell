@@ -28,11 +28,11 @@
  *@func: the function that executes the command
  */
 
-typedef struct map
+typedef struct zone
 {
 	char *command_name;
 	void (*func)(char **command);
-} function_map;
+} funs_zone;
 
 extern char **environ;
 extern char *line;
