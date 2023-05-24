@@ -3,21 +3,21 @@
 /**
  * _strlen - gets the length of a string
  *
- * @string: the string to be considered
+ * @str: the string to be considered
  *
  * Return: the string length
  */
 
-int _strlen(char *string)
+int _strlen(char *str)
 {
 	int str_len;
 
-	if (string == NULL)
+	if (str == NULL)
 	{
 		return (0);
 	}
 	str_len = 0;
-	while (string[str_len])
+	while (str[str_len])
 	{
 		str_len++;
 	}
@@ -27,13 +27,13 @@ int _strlen(char *string)
 
 
 /**
- * remove_newline - removes the new line as a result of enter
+ * rmv_nl - removes the new line as a result of enter
  * @str: string to remove newline from
  *
  * Return: nothing
  */
 
-void remove_newline(char *str)
+void rmv_nl(char *str)
 {
 	int index;
 
@@ -51,19 +51,19 @@ void remove_newline(char *str)
 /**
  * tokenizer - tokenizes cmd and save as array of strings
  *
- * @input_string: string to be tokenized
+ * @cmd: string to be tokenized
  *
  * @delim: what to tokenize with
  *
  * Return: array of string containing commans
  */
 
-char **tokenizer(char *input_string, char *delim)
+char **tokenizer(char *cmd, char *delim)
 {
 	int num = 0;
 	char **c_str = NULL, *toks = NULL, *pt = NULL;
 
-	toks = _strtok_r(input_string, delim, &pt);
+	toks = _strtok_r(cmd, delim, &pt);
 
 	while (toks != NULL)
 	{
@@ -88,7 +88,7 @@ char **tokenizer(char *input_string, char *delim)
  * Return: nothing
  */
 
-void _strcpy(char *source, char *dest)
+void _strcpy(char *s1, char *s2)
 {
 	int index;
 
@@ -100,20 +100,20 @@ void _strcpy(char *source, char *dest)
 }
 
 /**
- * print - help prints to user
+ * _write - help prints to user
  *
- * @string: what to print
- * @stream: where to print to (in out or err)
+ * @str: what to print
+ * @stm: where to print to (in out or err)
  *
  * Return: return nothing
  */
 
-void print(char *string, int stream)
+void _write(char *str, int stm)
 {
 	int index;
 
-	for (index = 0; string[index]; index++)
+	for (index = 0; str[index]; index++)
 	{
-		write(stream, &string[index], 1);
+		write(stm, &str[index], 1);
 	}
 }

@@ -41,11 +41,11 @@ extern char *shell_name;
 extern int status;
 
 /*helpers*/
-void print(char *, int);
-char **tokenizer(char *, char *);
-void remove_newline(char *);
-int _strlen(char *);
-void _strcpy(char *, char *);
+void _write(char *str, int stm);
+char **tokenizer(char *cmd, char *delim);
+void rmv_nl(char *str);
+int _strlen(char *str);
+void _strcpy(char *s1, char *s2);
 
 /*helpers2*/
 int _strcmp(char *, char *);
