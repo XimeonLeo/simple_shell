@@ -16,7 +16,7 @@ void initializer(char **current_command, int type_command)
 		PID = fork();
 		if (PID == 0)
 		{
-			execute_command(current_command, type_command);
+			exec_comd(current_command, type_command);
 		}
 		else
 		{
@@ -25,5 +25,5 @@ void initializer(char **current_command, int type_command)
 		}
 	}
 	else
-		execute_command(current_command, type_command);
+		exec_comd(current_command, type_command);
 }

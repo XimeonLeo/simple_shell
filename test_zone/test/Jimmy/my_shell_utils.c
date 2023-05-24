@@ -2,7 +2,7 @@
 
 
 /**
- * parse_command - This func decides the kind of the comd.
+ * parse_cmd - This func decides the kind of the comd.
  * @command: comd to be parsed.
  *
  * Return: The const representing the kind of the comd
@@ -12,7 +12,7 @@
  *		 INVALID_COMMAND (-1) reps all invalid commands on this code.
  */
 
-int parse_command(char *command)
+int parse_cmd(char *command)
 {
 	char *int_cmd[] = {"env", "exit", NULL};
 	char *path = NULL;
@@ -29,7 +29,7 @@ int parse_command(char *command)
 			return (INTERNAL_COMMAND);
 	}
 
-	path = check_path(command);
+	path = path_inspect(command);
 	if (path != NULL)
 	{
 		free(path);
@@ -40,14 +40,14 @@ int parse_command(char *command)
 }
 
 /**
- * execute_command - This executes a cmd based on it's kind.
+ * exec_comd - This executes a cmd based on it's kind.
  * @tokenized_command: form of the cmd that has been tokenized.
  * @command_type: type of the cmd
  *
  * Return: void
  */
 
-void execute_command(char **tokenized_command, int command_type)
+void exec_comd(char **tokenized_command, int command_type)
 {
 	void (*func)(char **command);
 
@@ -55,21 +55,21 @@ void execute_command(char **tokenized_command, int command_type)
 	{
 		if (execve(tokenized_command[0], tokenized_command, NULL) == -1)
 		{
-			perror(_getenv("PWD"));
+			perror(get_environ("PWD"));
 			exit(2);
 		}
 	}
 	if (command_type == PATH_COMMAND)
 	{
-		if (execve(check_path(tokenized_command[0]), tokenized_command, NULL) == -1)
+		if (execve(path_inspect(tokenized_command[0]), tokenized_command, NULL) == -1)
 		{
-			perror(_getenv("PWD"));
+			perror(get_environ("PWD"));
 			exit(2);
 		}
 	}
 	if (command_type == INTERNAL_COMMAND)
 	{
-		func = get_func(tokenized_command[0]);
+		func = get_function(tokenized_command[0]);
 		func(tokenized_command);
 	}
 	if (command_type == INVALID_COMMAND)
@@ -83,16 +83,16 @@ void execute_command(char **tokenized_command, int command_type)
 }
 
 /**
- * check_path - This confirms if a cmd is found in the PATH.
+ * path_inspect - This confirms if a cmd is found in the PATH.
  * @command: cmd to be implemented.
  *
  * Return: path where the cmd is found in, else, NULL if not found.
  */
-char *check_path(char *command)
+char *path_inspect(char *command)
 {
 	char *temp, *temp2, *path_cpy;
 	char **patharray = NULL;
-	char *path = _getenv("PATH");
+	char *path = get_environ("PATH");
 	int index;
 
 	if (path == NULL || _strlen(path) == 0)
@@ -121,13 +121,13 @@ char *check_path(char *command)
 }
 
 /**
- * get_func - gets a func based on the cmd given.
+ * get_function - gets a func based on the cmd given.
  * @command: the string to check against the mapping.
  *
  * Return: pointer to the proper function, or null on fail
  */
 
-void (*get_func(char *command))(char **)
+void (*get_function(char *command))(char **)
 {
 	int index;
 	funs_zone tracking[] = {
@@ -144,13 +144,13 @@ void (*get_func(char *command))(char **)
 }
 
 /**
- * _getenv - tracks the value of an envir var.
+ * get_environ - tracks the value of an envir var.
  * @name: the name of the environment var
  *
  * Return: the value of the variable as a string
  */
 
-char *_getenv(char *name)
+char *get_environ(char *name)
 {
 	char *pair_ptr;
 	char **our_environ_var;
