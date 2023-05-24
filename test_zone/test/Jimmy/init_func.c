@@ -1,13 +1,12 @@
 #include "shell.h"
 
 /**
- * initializer - starts executing everything
- * @current_command: try to check current token
- * @type_command: parse token
+ * initializer - This func starts executing our code.
+ * @current_command: checks recent token used.
+ * @type_command: This rep parse token.
  *
- * Return: void function
+ * Return: void function.
  */
-
 void initializer(char **current_command, int type_command)
 {
 	pid_t PID;
@@ -16,7 +15,9 @@ void initializer(char **current_command, int type_command)
 	{
 		PID = fork();
 		if (PID == 0)
+		{
 			execute_command(current_command, type_command);
+		}
 		else
 		{
 			waitpid(PID, &status, 0);
