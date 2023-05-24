@@ -14,9 +14,10 @@ int _strlen(char *string)
 
 	if (string == NULL)
 		return (str_len);
-	for (str_len = 0; string[str_len]; str_len++)
+	str_len = 0;
+	while (string[str_len])
 	{
-		;
+		str_len++;
 	}
 	return (str_len);
 }

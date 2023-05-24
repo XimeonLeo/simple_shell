@@ -158,7 +158,7 @@ void remove_comment(char *input)
 
 	if (input[index] == '#')
 	{
-		input[i] = '\0';
+		input[index] = '\0';
 	}
 	while (input[index])
 	{

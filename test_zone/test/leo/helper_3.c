@@ -112,7 +112,7 @@ char *_strcat(char *destination, char *source)
 	int length_1 = _strlen(destination), length_2 = _strlen(source);
 
 	cat_str = malloc(sizeof(*cat_str) * (length_1 + length_2 + 1));
-	if (!cay_str)
+	if (!cat_str)
 	{
 		return (NULL);
 	}
