@@ -164,11 +164,11 @@ This project is a collaborative project carried out by: JIMMY MKPOIKANA (https:/
 	You have to handle the command cd -
 	You have to update the environment variable PWD when you change directory
 	- man chdir, man getcwd
-	
+
 	'''
 
 ## 11. ;
-	Simple shell 1.0 
+	Simple shell 1.0
 ***
 	* Handle the commands separator ;
 ***
@@ -191,7 +191,7 @@ This project is a collaborative project carried out by: JIMMY MKPOIKANA (https:/
 	alias name='value' [...]: Defines an alias for each name whose value is given. If name is already an alias, replaces its value with value
 ***
 	'''
-	
+
 ## 14. Variables
 	Simple shell 1.0 +
 ***
