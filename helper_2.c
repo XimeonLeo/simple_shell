@@ -1,158 +1,173 @@
 #include "shell.h"
 
+
 /**
- * modif_path - modifies the path variable
+ * my_strtok - strtok modified!!!
  *
- * @path: the path variable
+ * @string: string to tokenize
+ * @delim: delimiter used for tokenization
+ * @save_ptr: pointer to where a delimeter is found
  *
- * Return: a modified path variable
+ * Return: The next token if not NULL
  */
 
-char *modif_path(char *path)
+char *my_strtok(char *string, char *delim, char **save_ptr)
 {
-	int num_of_column = 0, i = 0, j = 0;
-	char *tmp_path = NULL;
+	char *end;
 
-	i = 0;
-	while (path[i])
+	if (string == NULL)
 	{
-		if (path[i] == ':')
-			num_of_column++;
-		else
-			break;
+		string = *save_ptr;
 	}
-	tmp_path = malloc(sizeof(char) * _strlen(path) + (num_of_column + 2));
-	if (!tmp_path)
+
+	if (*string == '\0')
 	{
-		perror("malloc");
+		*save_ptr = string;
 		return (NULL);
 	}
-	for (i = 0, j = 0; path[i]; i++)
+	string += my_strspn(string, delim);
+
+	if (*string == '\0')
 	{
-		if (path[i] == ':')
+		*save_ptr = string;
+		return (NULL);
+	}
+
+	end = string + my_strcspn(string, delim);
+
+	if (*end == '\0')
+	{
+		*save_ptr = end;
+		return (string);
+	}
+
+	*end = '\0';
+	*save_ptr = end + 1;
+
+	return (string);
+}
+
+/**
+ * _atoi - changes a char to int
+ *
+ * @s: the string to consider
+ *
+ * Return: an int str
+ */
+
+int _atoi(char *s)
+{
+	size_t itger = 0;
+
+	do {
+		if (*s == '-')
 		{
-			tmp_path[j++] = '/';
-			tmp_path[j++] = ':';
+			return (-1);
+		}
+		else if ((*s < '0' || *s > '9') && *s != '\0')
+		{
+			return (-1);
+		}
+		else if (*s >= '0'  && *s <= '9')
+		{
+			itger = (itger * 10) + (*s - '0');
+		}
+		else if (itger > 0)
+		{
+			break;
+		}
+	} while (*s++);
+
+	return (itger);
+}
+
+/**
+ * _realloc - reallocates a memory for other use
+ *
+ * @ptr: pointer to a malloced memory
+ * @old_size: size of ptr
+ * @new_size: new size to be reallocatef
+ *
+ * Return: pointer to tge address of a reallocated memory block
+ */
+
+void *_realloc(void *ptr, size_t old_size, size_t new_size)
+{
+	void *tmp;
+	size_t index;
+
+	if (ptr == NULL)
+	{
+		tmp = malloc(new_size);
+		return (tmp);
+	}
+	else if (new_size == old_size)
+	{
+		return (ptr);
+	}
+	else if (new_size == 0 && ptr != NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	else
+	{
+		tmp = malloc(new_size);
+		if (tmp != NULL)
+		{
+			for (index = 0; index < min(old_size, new_size); index++)
+				*((char *)tmp + index) = *((char *)ptr + index);
+			free(ptr);
+
+			return (tmp);
 		}
 		else
-			tmp_path[j++] = path[i];
-	}
-	tmp_path[j++] = '/';
-	tmp_path[j++] = '\0';
+			return (NULL);
 
-	return (tmp_path);
+	}
 }
 
 /**
- * path_finder - gets the PATH variable from the environment variable
+ * ctrl_c - handles the signal -> CTRL-C
  *
- * @av: argument vector
- * @ev: the environment variable
+ * @signum: signal val
  *
- * Return: the path if found
+ * Return: nothinh
  */
 
-char *path_finder(char **av, char **ev)
+void ctrl_c(int signum)
 {
-	int i;
-	char *path = NULL;
-
-	for (i = 0; ev[i]; i++)
+	if (signum == SIGINT)
 	{
-		if (_strncmp(ev[i], "PATH=", 5) == 0)
-		{
-			path = _strdup(ev[i]); /* malloced */
-		}
+		_write("\n:) ", STDIN_FILENO);
 	}
-	if (!path)
-	{
-		perror(av[0]);
-	}
-
-	return (path);
 }
 
 /**
- * _builtin - Handles built-in commands
+ * rm_cmt - neglet inputs after '#'
  *
- * @cmd: Array of strings containing the command and its arguments
- * @ev: The environment variable
+ * @input: input
  *
- * Return: 0 if command is a built-in, -1 otherwise
+ * Return: nothing
  */
 
-int _builtin(char *cmd, char **ev)
+void rm_cmt(char *input)
 {
-	if (cmd == NULL)
-	{
-		return (-1);
-	}
-	if (_strcmp(cmd, "exit\n") == 0)
-	{
-		free(cmd);
-		exit(EXIT_SUCCESS);
-	}
-	else if (_strcmp(cmd, "env\n") == 0)
-	{
-		int i;
+	int index = 0;
 
-		for (i = 0; ev[i]; i++)
-		{
-			printf("%s\n", ev[i]);
-		}
-		free(cmd);
-		return (0);
+	if (input[index] == '#')
+	{
+		input[index] = '\0';
 	}
-	return (-1);
+	while (input[index])
+	{
+		if (input[index] == '#' && input[index - 1] == ' ')
+		{
+			break;
+		}
+		index++;
+	}
+	input[index] = '\0';
 }
 
-/**
- * _strcpy - to copy a string using pointers
- * @dest: where to copy into
- * @src: string to copy
- *
- * Return: pointer to dest
- */
 
-char *_strcpy(char *dest, char *src)
-{
-	int block = 0;
-
-	while (src[block] != '\0')
-	{
-		dest[block] = src[block];
-		block++;
-	}
-
-	dest[block] = '\0';
-
-	return (dest);
-}
-
-/**
- * _strncmp - compares the first n bytes of two trings
- *
- * @str1: the first string to consider
- * @str2: the second string to consider
- * @n: the number of bytes to consider
- *
- * Return: the difference between the bytes considered
- */
-
-int _strncmp(const char *str1, const char *str2, size_t n)
-{
-	size_t i;
-
-	for (i = 0; i < n; i++)
-	{
-		if (str1[i] != str2[i])
-		{
-			return (str1[i] - str2[i]);
-		}
-		else if (str1[i] == '\0' || str2[i] == '\0')
-		{
-			return (0);
-		}
-	}
-	return (0);
-}

@@ -1,151 +1,119 @@
 #include "shell.h"
 
 /**
- * _strcat - to append two strings
+ * _strlen - gets the length of a string
  *
- * @dest: first string to append
- * @src: second string to append
+ * @str: the string to be considered
  *
- * Return: dest for success
- */
-
-char *_strcat(char *dest, char *src)
-{
-	char *concat_string = NULL;
-	int index, total_len = 0;
-
-	index = 0;
-	while (dest[index++])
-	{
-		total_len++;
-	}
-	index = 0;
-	while (src[index++])
-	{
-		total_len++;
-	}
-	concat_string = malloc(sizeof(char) * total_len + 1);
-	if (!concat_string)
-	{
-		return (NULL);
-	}
-	for (index = 0, total_len = 0; dest[index]; index++)
-	{
-		concat_string[total_len++] = dest[index];
-	}
-	for (index = 0; src[index]; index++)
-	{
-		concat_string[total_len++] = src[index];
-	}
-	concat_string[total_len] = '\0';
-
-	return (concat_string);
-}
-
-/**
- * _strcmp - to compare two strings
- *
- * @s1: first string to consider
- * @s2: second string to consider
- *
- * Return: difference of strings
- */
-
-int _strcmp(char *s1, char *s2)
-{
-	int length = 0;
-
-	while (s1[length] == s2[length] && s1[length])
-	{
-		length++;
-	}
-
-	return (s1[length] - s2[length]);
-}
-
-/**
- * tokenizer - tokenizes a string into an array of strings
- *
- * @str: the string to tokenize
- * @delim: the delimiter to use for tokenization
- *
- * Return: pointer to array of strings(tokens)
- */
-
-char **tokenizer(char *str, const char *delim)
-{
-	char **toks = NULL;
-	char *token = NULL;
-	int i = 0;
-
-	toks = malloc(sizeof(char *) * MAX_ARGS);
-	if (!toks)
-	{
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-
-	token = strtok(str, delim);
-	while (token)
-	{
-		toks[i] = token;
-		token = strtok(NULL, delim);
-		i++;
-	}
-	toks[i] = NULL;
-
-	return (toks);
-}
-
-/**
- * _strlen - Returns the length of a string.
- * @str: string to consider
- *
- * Return: Length of tge string
+ * Return: the string length
  */
 
 int _strlen(char *str)
 {
-	int string_length = 0;
+	int str_len;
 
-	while (str[string_length])
+	if (str == NULL)
 	{
-		string_length++;
+		return (0);
 	}
-	return (string_length);
+	str_len = 0;
+	while (str[str_len])
+	{
+		str_len++;
+	}
+
+	return (str_len);
+}
+
+
+/**
+ * rmv_nl - removes the new line as a result of enter
+ * @str: string to remove newline from
+ *
+ * Return: nothing
+ */
+
+void rmv_nl(char *str)
+{
+	int index;
+
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == '\n')
+			break;
+		index++;
+	}
+	str[index] = '\0';
+}
+
+
+/**
+ * tokenizer - tokenizes cmd and save as array of strings
+ *
+ * @cmd: string to be tokenized
+ *
+ * @delim: what to tokenize with
+ *
+ * Return: array of string containing commans
+ */
+
+char **tokenizer(char *cmd, char *delim)
+{
+	int num = 0;
+	char **c_str = NULL, *toks = NULL, *pt = NULL;
+
+	toks = my_strtok(cmd, delim, &pt);
+
+	while (toks != NULL)
+	{
+		c_str = _realloc(c_str, sizeof(*c_str) * num, sizeof(*c_str) * (num + 1));
+		c_str[num] = toks;
+		toks = my_strtok(NULL, delim, &pt);
+		num++;
+	}
+
+	c_str = _realloc(c_str, sizeof(*c_str) * num, sizeof(*c_str) * (num + 1));
+	c_str[num] = NULL;
+
+	return (c_str);
 }
 
 /**
- * _strdup - Duplicates a string
+ * _strcpy - copies a string to a new address
  *
- * @string: String to duplicate
+ * @s1: where to copy from
+ * @s2: where to copy to
  *
- *Return: Pointer to the duplicated string
+ * Return: nothing
  */
 
-char *_strdup(char *string)
+void _strcpy(char *s1, char *s2)
 {
-	int index = 0, length = 0;
-	char *str_dup;
+	int index;
 
-	if (string == NULL)
+	for (index = 0; s1[index]; index++)
 	{
-		return (NULL);
+		s2[index] = s1[index];
 	}
+	s2[index] = '\0';
+}
 
-	length = _strlen(string);
+/**
+ * _write - help prints to user
+ *
+ * @str: what to print
+ * @stm: where to print to (in out or err)
+ *
+ * Return: return nothing
+ */
 
-	str_dup = malloc(sizeof(char) * (length + 1));
+void _write(char *str, int stm)
+{
+	int index;
 
-	if (str_dup == NULL)
+	for (index = 0; str[index]; index++)
 	{
-		return (NULL);
+		write(stm, &str[index], 1);
 	}
-	for (index = 0; index < length; index++)
-	{
-		str_dup[index] = string[index];
-	}
-	str_dup[index] = '\0';
-
-	return (str_dup);
 }
