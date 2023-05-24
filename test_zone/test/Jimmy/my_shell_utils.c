@@ -130,14 +130,14 @@ char *check_path(char *command)
 void (*get_func(char *command))(char **)
 {
 	int index;
-	function_map mapping[] = {
+	funs_zone tracking[] = {
 		{"env", env}, {"exit", quit}
 	};
 
 	for (index = 0; index < 2; index++)
 	{
-		if (_strcmp(command, mapping[index].command_name) == 0)
-			return (mapping[index].func);
+		if (_strcmp(command, tracking[index].cmd) == 0)
+			return (tracking[index].func);
 	}
 
 	return (NULL);
