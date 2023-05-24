@@ -48,18 +48,18 @@ int _strlen(char *str);
 void _strcpy(char *s1, char *s2);
 
 /*helpers2*/
+int my_strspn(char *s1, char *s2);
 int _strcmp(char *s1, char *s2);
 char *_strcat(char *str1, char *str2);
-int _strspn(char *s1, char *s2);
 int my_strcspn(char *s1, char *s2);
 char *my_strchr(char *s1, char s2);
 
 /*helpers3*/
-char *_strtok_r(char *str, char *delim, char **new_ptr);
+char *my_strtok(char *str, char *delim, char **new_ptr);
 int _atoi(char *str);
-void *_realloc(void *ptr, unsigned int old_mem, unsigned int new_mem);
-void ctrl_c_handler(int);
-void remove_comment(char *sig_val);
+void *_realloc(void *ptr, size_t old_mem, size_t new_mem);
+void ctrl_c(int);
+void rm_cmt(char *sig_val);
 
 /*utils*/
 int parse_command(char *);

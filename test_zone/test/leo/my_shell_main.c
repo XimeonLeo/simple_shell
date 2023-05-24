@@ -22,7 +22,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	int index;
 	int entered_cmd = 0;
 
-	signal(SIGINT, ctrl_c_handler);
+	signal(SIGINT, ctrl_c);
 	shell_name = argv[0];
 	while (1)
 	{
@@ -34,7 +34,7 @@ int main(int argc __attribute__((unused)), char **argv)
 			exit(status);
 		}
 			rmv_nl(line);
-			remove_comment(line);
+			rm_cmt(line);
 			commands = tokenizer(line, ";");
 
 		for (index = 0; commands[index] != NULL; index++)

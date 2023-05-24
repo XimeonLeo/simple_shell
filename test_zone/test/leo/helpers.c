@@ -63,13 +63,13 @@ char **tokenizer(char *cmd, char *delim)
 	int num = 0;
 	char **c_str = NULL, *toks = NULL, *pt = NULL;
 
-	toks = _strtok_r(cmd, delim, &pt);
+	toks = my_strtok(cmd, delim, &pt);
 
 	while (toks != NULL)
 	{
 		c_str = _realloc(c_str, sizeof(*c_str) * num, sizeof(*c_str) * (num + 1));
 		c_str[num] = toks;
-		toks = _strtok_r(NULL, delim, &pt);
+		toks = my_strtok(NULL, delim, &pt);
 		num++;
 	}
 

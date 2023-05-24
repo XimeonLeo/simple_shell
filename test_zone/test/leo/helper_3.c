@@ -9,7 +9,7 @@
  * Return: num of matched bytes
  */
 
-int _strsub(char *s1, char *s2)
+int my_strspn(char *s1, char *s2)
 {
 	int index = 0;
 	int mach = 0;
