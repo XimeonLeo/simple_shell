@@ -70,7 +70,7 @@ char *_getenv(char *);
 
 /*built_in*/
 void env(char **cmd_toks);
-void exit(char **cmd_toks);
+void quit(char **cmd_toks);
 
 /*main*/
 extern void non_interactive(void);

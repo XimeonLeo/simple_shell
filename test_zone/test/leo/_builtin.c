@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * exit - a builtin to exit
+ * quit - a builtin to exit
  *
  * @cmd_toks: cmd passed
  *
  * Return: nithing
  */
 
-void exit(char **cmd_toks)
+void quit(char **cmd_toks)
 {
 	int toks_num = 0, cmd;
 
