@@ -22,15 +22,14 @@
 #define min(x, y) (((x) < (y)) ? (x) : (y))
 
 /**
- *struct map - a struct that maps a command name to a function 
+ *struct zone - a struct that maps a command name to a function 
  *
  *@command_name: name of the command
  *@func: the function that executes the command
  */
-
 typedef struct zone
 {
-	char *command_name;
+	char *cmd;
 	void (*func)(char **command);
 } funs_zone;
 
@@ -62,11 +61,11 @@ void ctrl_c(int);
 void rm_cmt(char *sig_val);
 
 /*utils*/
-int parse_command(char *);
-void execute_command(char **, int);
-char *check_path(char *);
-void (*get_func(char *))(char **);
-char *_getenv(char *);
+int parse_command(char *cmd);
+void execute_command(char **cmd_toks, int cmd_typ);
+char *check_path(char *cmd);
+void (*get_func(char *cmd))(char **);
+char *_getenv(char *pt);
 
 /*built_in*/
 void env(char **cmd_toks);

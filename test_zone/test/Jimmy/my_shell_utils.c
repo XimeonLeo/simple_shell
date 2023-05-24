@@ -3,7 +3,7 @@
 
 /**
  * parse_command - This func decides the kind of the comd.
- * @command: comd to be parsed.
+ * @cmd: comd to be parsed.
  *
  * Return: The const representing the kind of the comd
  * Description - EXTERNAL_COMMAND (1) reps commands such as /bin/ls.
@@ -12,24 +12,24 @@
  *		 INVALID_COMMAND (-1) reps all invalid commands on this code.
  */
 
-int parse_command(char *command)
+int parse_command(char *cmd)
 {
 	char *int_cmd[] = {"env", "exit", NULL};
 	char *path = NULL;
 	int index;
 
-	for (index = 0; command[index] != '\0'; index++)
+	for (index = 0; cmd[index] != '\0'; index++)
 	{
-		if (command[index] == '/')
+		if (cmd[index] == '/')
 			return (EXTERNAL_COMMAND);
 	}
 	for (index = 0; int_cmd[index] != NULL; index++)
 	{
-		if (_strcmp(command, int_cmd[index]) == 0)
+		if (_strcmp(cmd, int_cmd[index]) == 0)
 			return (INTERNAL_COMMAND);
 	}
 
-	path = check_path(command);
+	path = check_path(cmd);
 	if (path != NULL)
 	{
 		free(path);
@@ -41,42 +41,42 @@ int parse_command(char *command)
 
 /**
  * execute_command - This executes a cmd based on it's kind.
- * @tokenized_command: form of the cmd that has been tokenized.
- * @command_type: type of the cmd
+ * @cmd_toks: form of the cmd that has been tokenized.
+ * @cmd_typ: type of the cmd
  *
  * Return: void
  */
 
-void execute_command(char **tokenized_command, int command_type)
+void execute_command(char **cmd_toks, int cmd_typ)
 {
 	void (*func)(char **command);
 
-	if (command_type == EXTERNAL_COMMAND)
+	if (cmd_typ == EXTERNAL_COMMAND)
 	{
-		if (execve(tokenized_command[0], tokenized_command, NULL) == -1)
+		if (execve(cmd_toks[0], cmd_toks, NULL) == -1)
 		{
 			perror(_getenv("PWD"));
 			exit(2);
 		}
 	}
-	if (command_type == PATH_COMMAND)
+	if (cmd_typ == PATH_COMMAND)
 	{
-		if (execve(check_path(tokenized_command[0]), tokenized_command, NULL) == -1)
+		if (execve(check_path(cmd_toks[0]), cmd_toks, NULL) == -1)
 		{
 			perror(_getenv("PWD"));
 			exit(2);
 		}
 	}
-	if (command_type == INTERNAL_COMMAND)
+	if (cmd_typ == INTERNAL_COMMAND)
 	{
-		func = get_func(tokenized_command[0]);
-		func(tokenized_command);
+		func = get_func(cmd_toks[0]);
+		func(cmd_toks);
 	}
-	if (command_type == INVALID_COMMAND)
+	if (cmd_typ == INVALID_COMMAND)
 	{
 		_write(shell_name, STDERR_FILENO);
 		_write(": 1: ", STDERR_FILENO);
-		_write(tokenized_command[0], STDERR_FILENO);
+		_write(cmd_toks[0], STDERR_FILENO);
 		_write(": not found\n", STDERR_FILENO);
 		status = 127;
 	}
@@ -84,11 +84,11 @@ void execute_command(char **tokenized_command, int command_type)
 
 /**
  * check_path - This confirms if a cmd is found in the PATH.
- * @command: cmd to be implemented.
+ * @cmd: cmd to be implemented.
  *
  * Return: path where the cmd is found in, else, NULL if not found.
  */
-char *check_path(char *command)
+char *check_path(char *cmd)
 {
 	char *temp, *temp2, *path_cpy;
 	char **patharray = NULL;
@@ -104,7 +104,7 @@ char *check_path(char *command)
 	for (index = 0; patharray[index] != NULL; index++)
 	{
 		temp2 = _strcat(patharray[index], "/");
-		temp = _strcat(temp2, command);
+		temp = _strcat(temp2, cmd);
 		if (access(temp, F_OK) == 0)
 		{
 			free(temp2);
@@ -122,12 +122,12 @@ char *check_path(char *command)
 
 /**
  * get_func - gets a func based on the cmd given.
- * @command: the string to check against the mapping.
+ * @cmd: the string to check against the mapping.
  *
  * Return: pointer to the proper function, or null on fail
  */
 
-void (*get_func(char *command))(char **)
+void (*get_func(char *cmd))(char **)
 {
 	int index;
 	funs_zone tracking[] = {
@@ -136,7 +136,7 @@ void (*get_func(char *command))(char **)
 
 	for (index = 0; index < 2; index++)
 	{
-		if (_strcmp(command, tracking[index].cmd) == 0)
+		if (_strcmp(cmd, tracking[index].cmd) == 0)
 			return (tracking[index].func);
 	}
 
@@ -145,12 +145,12 @@ void (*get_func(char *command))(char **)
 
 /**
  * _getenv - tracks the value of an envir var.
- * @name: the name of the environment var
+ * @pt: the name of the environment var
  *
  * Return: the value of the variable as a string
  */
 
-char *_getenv(char *name)
+char *_getenv(char *pt)
 {
 	char *pair_ptr;
 	char **our_environ_var;
@@ -158,7 +158,7 @@ char *_getenv(char *name)
 
 	for (our_environ_var = environ; *our_environ_var != NULL; our_environ_var++)
 	{
-		for (pair_ptr = *our_environ_var, nameCopy = name;
+		for (pair_ptr = *our_environ_var, nameCopy = pt;
 		     *pair_ptr == *nameCopy; pair_ptr++, nameCopy++)
 		{
 			if (*pair_ptr == '=')
