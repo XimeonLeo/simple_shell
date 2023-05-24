@@ -16,7 +16,7 @@ void non_interactive(void)
 	{
 		while (getline(&line, &nn, stdin) != -1)
 		{
-			remove_newline(line);
+			rmv_nl(line);
 			remove_comment(line);
 			commands = tokenizer(line, ";");
 			for (index = 0; commands[index] != NULL; index++)
