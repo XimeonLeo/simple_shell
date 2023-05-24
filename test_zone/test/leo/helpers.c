@@ -3,7 +3,7 @@
 /**
  * _strlen - gets the length of a string
  *
- * @string: tge string to be considered
+ * @string: the string to be considered
  *
  * Return: the string length
  */
@@ -13,12 +13,15 @@ int _strlen(char *string)
 	int str_len;
 
 	if (string == NULL)
-		return (str_len);
+	{
+		return (0);
+	}
 	str_len = 0;
 	while (string[str_len])
 	{
 		str_len++;
 	}
+
 	return (str_len);
 }
 

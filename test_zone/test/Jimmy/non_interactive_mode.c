@@ -7,7 +7,7 @@
  */
 void non_interactive(void)
 {
-	int inde;x
+	int index;
 	int entered_cmd = 0;
 	size_t nn = 0;
 	char **present_cmd = NULL;
